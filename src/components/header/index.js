@@ -46,7 +46,7 @@ class Header extends Component {
     } else {
       return (
         <div>
-          <h1>myLocation</h1>
+          <h1>myLocations</h1>
           <Route path='/categories' exact component={newCategory} />
           <Route path='/categories/new' exact component={saveDeleteCategory} />
           <Route path='/categories/edit/:id' exact component={saveDeleteCategory} />
