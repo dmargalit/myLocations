@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Switch, Route, Link, Redirect } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { submit } from 'redux-form'
 
 import { createCategory, deleteCategory, fetchCategory } from "../../actions/categories";
+import SaveButton from './saveButton';
+import { deleteLocation } from "../../actions/locations";
 
 class Header extends Component {
   state = { redirect: false, submitForm: null }
@@ -14,9 +16,14 @@ class Header extends Component {
     // this.props.fetchCategory(id);
   }
 
-  onDeleteClick(id) {
+  onDeleteCategoryClick(id) {
     deleteCategory(id);
     this.setState({ redirect: '/categories' });
+  }
+
+  onDeleteLocationClick(id) {
+    deleteLocation(id);
+    this.setState({ redirect: '/locations' });
   }
 
   render() {
@@ -24,21 +31,31 @@ class Header extends Component {
 
     const saveDeleteCategory = () => (
       <div>
-        <button onClick={this.props.submitForm}>Save</button>
-        <button onClick={() => this.onDeleteClick(this.props.category.id)}>Delete</button>
+        <SaveButton />
+        <button
+          className="btn btn-danger"
+          onClick={() => this.onDeleteCategoryClick(this.props.category.id)}
+        >
+          Delete
+        </button>
       </div>
     );
     const newCategory = () => (
-      <Link to="/categories/new"><button>New Category</button></Link>
+      <Link to="/categories/new"><button className="btn btn-success">New Category</button></Link>
     );
     const saveDeleteLocation = () => (
       <div>
-        <button onClick={this.props.submitForm}>Save</button>
-        <button onClick={() => this.onDeleteClick(this.props.category.id)}>Delete</button>
+        <SaveButton />
+        <button
+          className="btn btn-danger"
+          onClick={() => this.onDeleteLocationClick(this.props.location.id)}
+        >
+          Delete
+        </button>
       </div>
     );
     const newLocation = () => (
-      <Link to="/locations/new"><button>New Location</button></Link>
+      <Link to="/locations/new"><button className="btn btn-success">New Location</button></Link>
     );
 
     if (redirect) {
@@ -62,8 +79,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ category, categories }) {
-  return { category, categories };
+function mapStateToProps({ category, categories, location, locations }) {
+  return { category, categories, location, locations };
 }
 
 function mapDispatchToProps(dispatch) {

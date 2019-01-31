@@ -14,6 +14,8 @@ import EditCategory from './components/categories/editCategory';
 import CategoryItem from './components/categories/categoryItem';
 
 import LocationsList from './components/locations/locationsList';
+import EditLocation from './components/locations/editLocation';
+import LocationItem from './components/locations/locationItem';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -24,11 +26,14 @@ ReactDOM.render(
         <Header />
         <Switch>
           <Route exact path="/" render={() => (<Redirect to="/categories" />)} />
+
           <Route path='/categories' exact component={CategoriesList} />
           <Route path='/categories/new' component={EditCategory} />
           <Route path='/categories/edit/:id' component={EditCategory} />
 
           <Route path='/locations' exact component={LocationsList} />
+          <Route path='/locations/new' component={EditLocation} />
+          <Route path='/locations/edit/:id' component={EditLocation} />
         </Switch>
         <Footer />
       </div>

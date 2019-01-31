@@ -1,16 +1,23 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Button, Glyphicon } from 'react-bootstrap';
 
-class Footer extends Component {
-  render() {
-    return (
-      <div>
+const Footer = () => {
+  return (
+    <div>
         <hr />
-        <Link to="/categories"><button>Categories</button></Link>
-        <Link to="/locations"><button>Locations</button></Link>
-      </div>
-    )
-  }
+        <NavLink to="/categories">
+          <Button bsSize="large">
+            <Glyphicon glyph="th-list" />
+          </Button>
+        </NavLink>
+        <NavLink to="/locations">
+          <Button bsSize="large">
+            <Glyphicon glyph="screenshot" />
+          </Button>
+        </NavLink>
+    </div>
+  );
 }
 
 export default Footer;

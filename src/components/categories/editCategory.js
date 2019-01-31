@@ -2,21 +2,19 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import submit from './submit';
 import { 
   fetchCategory, 
-  deleteCategory, 
   editCategory,
-  createCategory,
-  fetchCategories 
+  createCategory
 } from "../../actions/categories";
 
 class EditCategory extends Component {
   componentDidMount() {
-    // const { id } = this.props.match.params;
-    // if (id) {
-    //   this.props.fetchCategory(id);
-    // }
-    console.log(this.props)
+    const { id } = this.props.match.params;
+    if (id) {
+      this.props.fetchCategory(id);
+    }
   }
 
   renderField(field) {
@@ -64,17 +62,14 @@ function validate(values) {
   return errors;
 }
 
-let InitializeFromStateForm = reduxForm({
-  validate,
-  form: 'EditCategoryForm'
-})(EditCategory)
-
-InitializeFromStateForm = connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     initialValues: state.category
-  }),
-  {load: fetchCategory} // bind account loading action creator
-)(InitializeFromStateForm)
+  }
+}
 
-
-export default InitializeFromStateForm;
+export default reduxForm({
+  validate,
+  form: "EditCategoryForm",
+  onSubmit: submit
+})(connect(mapStateToProps, { fetchCategory, editCategory, createCategory })(EditCategory));

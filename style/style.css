@@ -1,3 +1,6 @@
-form a {
-  margin-left: 5px;
+.btn{
+  margin: 10px;
+}
+.active button{
+  background-color: #ccc
 }
